@@ -34,6 +34,27 @@ class Course {
     })
   }
 
+  static async update(updatedCourse) {
+    const courses = await Course.getAll()
+
+    const courseIndex = courses.findIndex(course => course.id === updatedCourse.id)
+    courses[courseIndex] = updatedCourse
+
+    return new Promise((resolve, reject) => {
+      fs.writeFile(
+        path.join(__dirname, '..', 'data', 'courses.json'),
+        JSON.stringify(courses),
+        err => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve()
+          }
+        }
+      )
+    })
+  }
+
   static getAll() {
     return new Promise((resolve, reject) => {
       fs.readFile(path.join(__dirname, '..', 'data', 'courses.json'), 'utf-8', (err, data) => {

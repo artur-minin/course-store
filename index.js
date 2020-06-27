@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars')
 
 const homeRoutes = require('./routes/home')
 const coursesRoutes = require('./routes/courses')
-const addCourseRoutes = require('./routes/addCourse')
+const courseAddRoutes = require('./routes/course-add')
 
 const app = express()
 
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 // Register routes
 app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)
-app.use('/add-course', addCourseRoutes)
+app.use('/add-course', courseAddRoutes)
 
 const PORT = process.env.PORT || 3000
 

@@ -4,7 +4,7 @@ const router = Router()
 const Course = require('../models/course')
 
 router.get('/', (req, res) => {
-  res.render('addCourse', { title: 'Add Course', isOnAddCoursePage: true })
+  res.render('course-add', { title: 'Add Course', isOnAddCoursePage: true })
 })
 
 router.post('/', async (req, res) => {
