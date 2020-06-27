@@ -1,0 +1,28 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo">Course Store</a>
+
+    <ul id="nav-mobile" class="right hide-on-med-and-down nav-wrapper">
+      {{#if isOnHomePage}}
+      <li class="active"><a href="/">Main</a></li>
+      {{else}}
+      <li><a href="/">Main</a></li>
+      {{/if}}
+
+      {{#if isOnCoursesPage}}
+      <li class="active"><a href="/courses">Courses</a></li>
+      {{else}}
+      <li><a href="/courses">Courses</a></li>
+      {{/if}}
+
+      {{#if isOnAddCoursePage}}
+      <li class="active"><a href="/add">Add New Course</a></li>
+      {{else}}
+      <li><a href="/add">Add New Course</a></li>
+      {{/if}}
+
+
+
+    </ul>
+  </div>
+</nav>
