@@ -1,9 +1,9 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 
-const homePageRoutes = require('./routes/homePage')
-const coursesPageRoutes = require('./routes/coursesPage')
-const addCoursePageRoutes = require('./routes/addCoursePage')
+const homeRoutes = require('./routes/home')
+const coursesRoutes = require('./routes/courses')
+const addCourseRoutes = require('./routes/addCourse')
 
 const app = express()
 
@@ -20,10 +20,13 @@ app.set('views', 'views')
 // Register "public" directory as static
 app.use(express.static('public'))
 
+// Register middleware to parse request's body
+app.use(express.urlencoded({ extended: true }))
+
 // Register routes
-app.use('/', homePageRoutes)
-app.use('/courses', coursesPageRoutes)
-app.use('/add', addCoursePageRoutes)
+app.use('/', homeRoutes)
+app.use('/courses', coursesRoutes)
+app.use('/add-course', addCourseRoutes)
 
 const PORT = process.env.PORT || 3000
 
