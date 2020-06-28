@@ -14,9 +14,14 @@
         <p class="price">{{price}}</p>
       </div>
 
-      <div class="card-action yellow lighten-1 center">
+      <div class="card-action yellow lighten-1 actions">
         <a href="/courses/{{id}}" target="_blank" class="indigo-text text-darken-4 bold">Open</a>
         <a href="/courses/{{id}}/edit?allow=true" class="red-text text-darken-4 bold">Edit</a>
+
+        <form action="/cart/add" method="POST">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
       </div>
     </div>
   </div>

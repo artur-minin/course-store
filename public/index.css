@@ -6,6 +6,12 @@
   font-size: 1.5rem;
 }
 
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .fz2rem {
   font-size: 2rem;
 }
