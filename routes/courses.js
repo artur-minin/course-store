@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
   })
 })
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/edit/:id', async (req, res) => {
   if (!req.query.allow) {
     return res.redirect('/')
   }
@@ -29,9 +29,18 @@ router.get('/:id/edit', async (req, res) => {
   })
 })
 
-router.post('/:id/edit', async (req, res) => {
+router.post('/edit/:id', async (req, res) => {
   await Course.findByIdAndUpdate(req.params.id, req.body)
   res.redirect('/courses')
+})
+
+router.post('/delete/:id', async (req, res) => {
+  try {
+    await Course.deleteOne({ _id: req.params.id })
+    res.redirect('/courses')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 module.exports = router

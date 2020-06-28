@@ -14,10 +14,10 @@ const $cart = document.querySelector('#cart')
 
 if ($cart) {
   $cart.addEventListener('click', event => {
-    if (event.target.classList.contains('js-remove')) {
+    if (event.target.classList.contains('js-delete')) {
       const courseId = event.target.dataset.id
 
-      fetch(`/cart/remove/${courseId}`, {
+      fetch(`/cart/delete/${courseId}`, {
         method: 'delete'
       })
         .then(res => res.json())
@@ -31,7 +31,7 @@ if ($cart) {
                 <td>${course.count}</td>
                 <td>${course.price}</td>
                 <td>
-                  <button class="btn btn-small js-remove" data-id="${course.id}">Delete</button>
+                  <button class="btn btn-small js-delete" data-id="${course.id}">Delete</button>
                 </td>
               </tr>
               `

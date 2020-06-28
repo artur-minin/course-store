@@ -1,6 +1,6 @@
-<h1>Edit {{course.title}}</h1>
+<h1>Editing {{course.title}}</h1>
 
-<form action="/courses/{{course.id}}/edit" method="POST">
+<form action="/courses/edit/{{course.id}}" method="POST" class="mb2rem">
   <div class="input-field">
     <input id="title" name="title" placeholder="Enter the title..." type="text" value="{{course.title}}"
       class="validate" required>
@@ -22,5 +22,9 @@
     <span class="helper-text" data-error="Field is required"></span>
   </div>
 
-  <button type="submit" class="btn btn-primary">Update Course</button>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<form action="/courses/delete/{{course.id}}" method="POST">
+  <button type="submit" class="btn red">Delete</button>
 </form>
