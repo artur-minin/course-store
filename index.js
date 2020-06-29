@@ -11,7 +11,6 @@ const courseAddRoutes = require('./routes/course-add')
 const cartRoutes = require('./routes/cart')
 
 const User = require('./models/user')
-const { use } = require('./routes/course-add')
 
 const app = express()
 
