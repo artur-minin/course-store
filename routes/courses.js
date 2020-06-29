@@ -4,20 +4,28 @@ const router = Router()
 const Course = require('../models/course')
 
 router.get('/', async (req, res) => {
-  const courses = await Course.find()
-    .populate('userId', 'name email')
-    .select('title price imageURL')
+  try {
+    const courses = await Course.find()
+      .populate('userId', 'name email')
+      .select('title price imageURL')
 
-  res.render('courses', { title: 'Courses', isOnCoursesPage: true, courses })
+    res.render('courses', { title: 'Courses', isOnCoursesPage: true, courses })
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.get('/:id', async (req, res) => {
-  const course = await Course.findById(req.params.id)
-  res.render('course', {
-    layout: 'empty',
-    title: course.title,
-    course
-  })
+  try {
+    const course = await Course.findById(req.params.id)
+    res.render('course', {
+      layout: 'empty',
+      title: course.title,
+      course
+    })
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.get('/edit/:id', async (req, res) => {
@@ -25,16 +33,24 @@ router.get('/edit/:id', async (req, res) => {
     return res.redirect('/')
   }
 
-  const course = await Course.findById(req.params.id)
-  res.render('course-edit', {
-    title: `Edit ${course.title}`,
-    course
-  })
+  try {
+    const course = await Course.findById(req.params.id)
+    res.render('course-edit', {
+      title: `Edit ${course.title}`,
+      course
+    })
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.post('/edit/:id', async (req, res) => {
-  await Course.findByIdAndUpdate(req.params.id, req.body)
-  res.redirect('/courses')
+  try {
+    await Course.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect('/courses')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.post('/delete/:id', async (req, res) => {

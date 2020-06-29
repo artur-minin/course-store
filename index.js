@@ -9,6 +9,7 @@ const homeRoutes = require('./routes/home')
 const coursesRoutes = require('./routes/courses')
 const courseAddRoutes = require('./routes/course-add')
 const cartRoutes = require('./routes/cart')
+const orderRoutes = require('./routes/order')
 
 const User = require('./models/user')
 
@@ -47,6 +48,7 @@ app.use('/', homeRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/add-course', courseAddRoutes)
 app.use('/cart', cartRoutes)
+app.use('/order', orderRoutes)
 
 // Init connection to MongoDB and app
 const start = async () => {

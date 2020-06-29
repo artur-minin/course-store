@@ -17,33 +17,45 @@ const computeTotalPrice = courses => {
 }
 
 router.get('/', async (req, res) => {
-  const user = await req.user.populate('cart.items.courseId').execPopulate()
-  const courses = mapCartItems(user.cart)
+  try {
+    const user = await req.user.populate('cart.items.courseId').execPopulate()
+    const courses = mapCartItems(user.cart)
 
-  res.render('cart', {
-    title: 'Cart',
-    isOnCartPage: true,
-    courses: courses,
-    totalPrice: computeTotalPrice(courses)
-  })
+    res.render('cart', {
+      title: 'Cart',
+      isOnCartPage: true,
+      courses: courses,
+      totalPrice: computeTotalPrice(courses)
+    })
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.post('/add', async (req, res) => {
-  const course = await Course.findById(req.body.id)
-  await req.user.addToCart(course)
-  res.redirect('/cart')
+  try {
+    const course = await Course.findById(req.body.id)
+    await req.user.addToCart(course)
+    res.redirect('/cart')
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 router.delete('/delete/:id', async (req, res) => {
-  await req.user.deleteFromCart(req.params.id)
-  const user = await req.user.populate('cart.items.courseId').execPopulate()
-  const courses = mapCartItems(user.cart)
-  const cart = {
-    courses,
-    totalPrice: computeTotalPrice(courses)
-  }
+  try {
+    await req.user.deleteFromCart(req.params.id)
+    const user = await req.user.populate('cart.items.courseId').execPopulate()
+    const courses = mapCartItems(user.cart)
+    const cart = {
+      courses,
+      totalPrice: computeTotalPrice(courses)
+    }
 
-  res.status(200).json(cart)
+    res.status(200).json(cart)
+  } catch (error) {
+    console.error(error)
+  }
 })
 
 module.exports = router

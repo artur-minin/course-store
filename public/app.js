@@ -1,3 +1,14 @@
+const toDate = date => {
+  return new Intl.DateTimeFormat('en-US', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    second: '2-digit',
+    minute: '2-digit',
+    hour: '2-digit'
+  }).format(new Date(date))
+}
+
 const toCurrency = price => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -5,11 +16,17 @@ const toCurrency = price => {
   }).format(price)
 }
 
-// Format courses' price, placed inside card, on courses page
+// Format dates
+document.querySelectorAll('.date').forEach(node => {
+  node.textContent = toDate(node.textContent)
+})
+
+// Format prices
 document.querySelectorAll('.price').forEach(node => {
   node.textContent = toCurrency(node.textContent)
 })
 
+// Handler for delete item button in the cart
 const $cart = document.querySelector('#cart')
 
 if ($cart) {
