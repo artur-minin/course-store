@@ -10,6 +10,9 @@ const coursesRoutes = require('./routes/courses')
 const courseAddRoutes = require('./routes/course-add')
 const cartRoutes = require('./routes/cart')
 
+const User = require('./models/user')
+const { use } = require('./routes/course-add')
+
 const app = express()
 
 // Register "Handlebars" as files with "hbs" extension
@@ -22,6 +25,17 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
+
+// TODO: redo when going to add auth
+app.use(async (req, res, next) => {
+  try {
+    const user = await User.findById('5ef90814e66c6122e07f0b05')
+    req.user = user
+    next()
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 // Register "public" directory as static
 app.use(express.static(path.join(__dirname, 'public')))
@@ -45,6 +59,17 @@ const start = async () => {
       useUnifiedTopology: true,
       useFindAndModify: false
     })
+
+    //TODO: redo when going to add auth
+    const candidate = await User.findOne()
+    if (!candidate) {
+      const user = new User({
+        name: 'testUser',
+        email: 'testUser@mail.ru',
+        cart: { items: [] }
+      })
+      await user.save()
+    }
 
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => {
