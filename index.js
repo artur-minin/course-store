@@ -15,11 +15,13 @@ const orderRoutes = require('./routes/order')
 const authRoutes = require('./routes/auth')
 
 const variablesMiddleware = require('./middlewares/variables')
+const userMiddleware = require('./middlewares/user')
 
 const app = express()
 
 const DB_URI = 'mongodb+srv://Artur:78CikJe4409zIUlJ@cluster0-a4iur.mongodb.net/store?w=majority'
 
+// Add session data to DB
 const store = new MongoStore({
   uri: DB_URI,
   collection: 'sessions'
@@ -34,7 +36,11 @@ app.use(
   })
 )
 
+// Add variables to request object
 app.use(variablesMiddleware)
+
+// Add user data to request object
+app.use(userMiddleware)
 
 // Register "Handlebars" as files with "hbs" extension
 const hbs = exphbs.create({
