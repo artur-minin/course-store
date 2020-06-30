@@ -19,11 +19,13 @@ const authRoutes = require('./routes/auth')
 const variablesMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
 
+const keys = require('./keys')
+
 const app = express()
-const DB_URI = 'mongodb+srv://Artur:78CikJe4409zIUlJ@cluster0-a4iur.mongodb.net/store?w=majority'
+
 // Add session data to DB
 const store = new MongoStore({
-  uri: DB_URI,
+  uri: keys.DB_URI,
   collection: 'sessions'
 })
 // Register "Handlebars" as files with "hbs" extension
@@ -43,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true }))
 app.use(
   session({
-    secret: 'secret value',
+    secret: keys.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store
@@ -67,7 +69,7 @@ app.use('/auth', authRoutes)
 // Init connection to MongoDB and app
 const start = async () => {
   try {
-    await mongoose.connect(DB_URI, {
+    await mongoose.connect(keys.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false
