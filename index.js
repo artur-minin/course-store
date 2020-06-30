@@ -14,7 +14,7 @@ const cartRoutes = require('./routes/cart')
 const orderRoutes = require('./routes/order')
 const authRoutes = require('./routes/auth')
 
-const isAuthMiddleware = require('./middlewares/isAuth')
+const variablesMiddleware = require('./middlewares/variables')
 
 const app = express()
 
@@ -34,7 +34,7 @@ app.use(
   })
 )
 
-app.use(isAuthMiddleware)
+app.use(variablesMiddleware)
 
 // Register "Handlebars" as files with "hbs" extension
 const hbs = exphbs.create({

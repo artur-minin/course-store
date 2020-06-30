@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const router = Router()
 
+const authMiddleware = require('../middlewares/auth')
+
 const Course = require('../models/course')
 
 router.get('/', async (req, res) => {
@@ -28,7 +30,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', authMiddleware, async (req, res) => {
   if (!req.query.allow) {
     return res.redirect('/')
   }
@@ -44,7 +46,7 @@ router.get('/edit/:id', async (req, res) => {
   }
 })
 
-router.post('/edit/:id', async (req, res) => {
+router.post('/edit/:id', authMiddleware, async (req, res) => {
   try {
     await Course.findByIdAndUpdate(req.params.id, req.body)
     res.redirect('/courses')
@@ -53,7 +55,7 @@ router.post('/edit/:id', async (req, res) => {
   }
 })
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id', authMiddleware, async (req, res) => {
   try {
     await Course.deleteOne({ _id: req.params.id })
     res.redirect('/courses')
