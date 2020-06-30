@@ -33,9 +33,13 @@ if ($cart) {
   $cart.addEventListener('click', event => {
     if (event.target.classList.contains('js-delete')) {
       const courseId = event.target.dataset.id
+      const csrfToken = event.target.dataset.csrf
 
       fetch(`/cart/delete/${courseId}`, {
-        method: 'delete'
+        method: 'delete',
+        headers: {
+          'CSRF-Token': csrfToken
+        }
       })
         .then(res => res.json())
         .then(cart => {

@@ -1,6 +1,6 @@
 <nav>
   <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Course Store</a>
+    <a href="/" class="brand-logo">Course Store</a>
 
     <ul id="nav-mobile" class="right hide-on-med-and-down nav-wrapper">
       {{#if isOnHomePage}}
@@ -38,9 +38,9 @@
       {{else}}
 
       {{#if isOnLoginPage}}
-      <li class="active"><a href="/auth/login">Login</a></li>
+      <li class="active"><a href="/auth/login#login">Login</a></li>
       {{else}}
-      <li><a href="/auth/login">Login</a></li>
+      <li><a href="/auth/login#login">Login</a></li>
       {{/if}}
       {{/if}}
     </ul>

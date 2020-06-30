@@ -22,9 +22,12 @@
     <span class="helper-text" data-error="Field is required"></span>
   </div>
 
+  <input type="hidden" name="_csrf" value="{{csrf}}">
+
   <button type="submit" class="btn btn-primary">Update</button>
 </form>
 
 <form action="/courses/delete/{{course.id}}" method="POST">
+  <input type="hidden" name="_csrf" value="{{csrf}}">
   <button type="submit" class="btn red">Delete</button>
 </form>
