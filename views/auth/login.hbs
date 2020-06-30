@@ -1,0 +1,54 @@
+<div class="auth">
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s6"><a href="#login" class="active">Login</a></li>
+        <li class="tab col s6"><a href="#register">Register</a></li>
+      </ul>
+    </div>
+
+    <div id="login" class="col s6 offset-s3">
+      <h1>Login</h1>
+      <form action="/auth/login" method="POST">
+        <div class="input-field">
+          <input id="login-email" name="email" type="email" class="validate" required>
+          <label for="login-email">Email</label>
+          <span class="helper-text" data-error="Field is required"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="login-password" name="password" type="password" class="validate" required>
+          <label for="login-password">Password</label>
+          <span class="helper-text" data-error="Field is required"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    </div>
+
+    <div id="register" class="col s6 offset-s3">
+      <h1>Create Account</h1>
+      <form action="/auth/register" method="POST">
+        <div class="input-field">
+          <input id="register-email" name="email" type="email" class="validate" required>
+          <label for="register-email">Email</label>
+          <span class="helper-text" data-error="Field is required"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="register-password" name="password" type="password" class="validate" required>
+          <label for="register-password">Password</label>
+          <span class="helper-text" data-error="Field is required"></span>
+        </div>
+
+        <div class="input-field">
+          <input id="register-repeat-password" name="password" type="password" class="validate" required>
+          <label for="register-repeat-password">Repeat password</label>
+          <span class="helper-text" data-error="Field is required"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

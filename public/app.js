@@ -64,3 +64,6 @@ if ($cart) {
     }
   })
 }
+
+// Init tabs
+M.Tabs.init(document.querySelectorAll('.tabs'))

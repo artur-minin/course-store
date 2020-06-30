@@ -4,9 +4,9 @@
 
     <ul id="nav-mobile" class="right hide-on-med-and-down nav-wrapper">
       {{#if isOnHomePage}}
-      <li class="active"><a href="/">Main</a></li>
+      <li class="active"><a href="/">Home</a></li>
       {{else}}
-      <li><a href="/">Main</a></li>
+      <li><a href="/">Home</a></li>
       {{/if}}
 
       {{#if isOnCoursesPage}}
@@ -15,6 +15,7 @@
       <li><a href="/courses">Courses</a></li>
       {{/if}}
 
+      {{#if isAuth}}
       {{#if isOnAddCoursePage}}
       <li class="active"><a href="/add-course">Add Course</a></li>
       {{else}}
@@ -33,6 +34,15 @@
       <li><a href="/order">My Order</a></li>
       {{/if}}
 
+      <li><a href="auth/logout">Logout</a></li>
+      {{else}}
+
+      {{#if isOnLoginPage}}
+      <li class="active"><a href="/auth/login">Login</a></li>
+      {{else}}
+      <li><a href="/auth/login">Login</a></li>
+      {{/if}}
+      {{/if}}
     </ul>
   </div>
 </nav>
