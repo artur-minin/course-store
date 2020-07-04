@@ -1,6 +1,8 @@
 const path = require('path')
+const compression = require('compression')
 const csrf = require('csurf')
 const flash = require('connect-flash')
+const helmet = require('helmet')
 const express = require('express')
 const session = require('express-session')
 const mongoose = require('mongoose')
@@ -64,6 +66,8 @@ app.use(fileMiddleware.single('avatar'))
 
 app.use(csrf())
 app.use(flash())
+app.use(helmet())
+app.use(compression())
 // Add variables to request object
 app.use(variablesMiddleware)
 // Add user data to request object
@@ -78,7 +82,7 @@ app.use('/order', orderRoutes)
 app.use('/auth', authRoutes)
 app.use('/profile', profileRoutes)
 
-// Must be declared at the end
+// Must be declared at the bottom
 app.use(errorHandler)
 
 // Init connection to MongoDB and app

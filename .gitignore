@@ -69,5 +69,7 @@ typings/
 .env
 .env.test
 
+keys/keys.dev.js
+
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
