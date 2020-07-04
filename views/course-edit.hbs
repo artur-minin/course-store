@@ -1,5 +1,9 @@
 <h1>Editing {{course.title}}</h1>
 
+{{#if error}}
+<p class="alert">{{error}}</p>
+{{/if}}
+
 <form action="/courses/edit/{{course.id}}" method="POST" class="mb2rem">
   <div class="input-field">
     <input id="title" name="title" placeholder="Enter the title..." type="text" value="{{course.title}}"
@@ -16,7 +20,7 @@
   </div>
 
   <div class="input-field">
-    <input id="imageURL" name="imageURL" placeholder="https://..." type="text" value="{{course.imageURL}}"
+    <input id="imageURL" name="imageURL" placeholder="https://..." type="url" value="{{course.imageURL}}"
       class="validate" required>
     <label for="imageURL">URL to Image</label>
     <span class="helper-text" data-error="Field is required"></span>

@@ -1,7 +1,11 @@
+const { validationResult } = require('express-validator')
 const { Router } = require('express')
-const router = Router()
 
 const authMiddleware = require('../middlewares/auth')
+
+const { courseValidators } = require('../utils/validators')
+
+const router = Router()
 
 const Course = require('../models/course')
 
@@ -43,6 +47,7 @@ router.get('/edit/:id', authMiddleware, async (req, res) => {
     if (isCurrentUserCourse) {
       return res.render('course-edit', {
         title: `Edit ${course.title}`,
+        error: req.flash('editCourseError'),
         course
       })
     } else {
@@ -53,13 +58,21 @@ router.get('/edit/:id', authMiddleware, async (req, res) => {
   }
 })
 
-router.post('/edit/:id', authMiddleware, async (req, res) => {
+router.post('/edit/:id', authMiddleware, courseValidators, async (req, res) => {
   try {
-    const course = await Course.findById(req.params.id)
+    const courseId = req.params.id
+    const course = await Course.findById(courseId)
+
+    const validationErrors = validationResult(req)
+    if (!validationErrors.isEmpty()) {
+      req.flash('editCourseError', validationErrors.array()[0].msg)
+      return res.status(422).redirect(`/courses/edit/${courseId}?allow=true`)
+    }
+
     const isCurrentUserCourse = course.userId.toString() === req.user._id.toString()
 
     if (isCurrentUserCourse) {
-      await Course.findByIdAndUpdate(req.params.id, req.body)
+      await Course.findByIdAndUpdate(courseId, req.body)
       return res.redirect('/courses')
     } else {
       return res.redirect('/courses')
