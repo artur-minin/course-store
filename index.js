@@ -18,6 +18,7 @@ const authRoutes = require('./routes/auth')
 
 const variablesMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
+const errorHandler = require('./middlewares/error')
 
 const keys = require('./keys')
 
@@ -66,6 +67,9 @@ app.use('/add-course', courseAddRoutes)
 app.use('/cart', cartRoutes)
 app.use('/order', orderRoutes)
 app.use('/auth', authRoutes)
+
+// Must be declared at the end
+app.use(errorHandler)
 
 // Init connection to MongoDB and app
 const start = async () => {
