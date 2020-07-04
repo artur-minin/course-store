@@ -56,3 +56,8 @@
   background: #f44336;
   color: #fafafa;
 }
+
+.avatar {
+  max-width: 300px;
+  height: auto;
+}

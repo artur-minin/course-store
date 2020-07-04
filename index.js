@@ -1,9 +1,9 @@
 const path = require('path')
 const csrf = require('csurf')
 const flash = require('connect-flash')
-const mongoose = require('mongoose')
 const express = require('express')
 const session = require('express-session')
+const mongoose = require('mongoose')
 const MongoStore = require('connect-mongodb-session')(session)
 const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars')
@@ -15,20 +15,17 @@ const courseAddRoutes = require('./routes/course-add')
 const cartRoutes = require('./routes/cart')
 const orderRoutes = require('./routes/order')
 const authRoutes = require('./routes/auth')
+const profileRoutes = require('./routes/profile')
 
 const variablesMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
 const errorHandler = require('./middlewares/error')
+const fileMiddleware = require('./middlewares/file')
 
 const keys = require('./keys')
 
 const app = express()
 
-// Add session data to DB
-const store = new MongoStore({
-  uri: keys.DB_URI,
-  collection: 'sessions'
-})
 // Register "Handlebars" as files with "hbs" extension
 const hbs = exphbs.create({
   defaultLayout: 'main',
@@ -41,8 +38,16 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-// Register "public" directory as static
+// Register "public" and "images" directories as static
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/images', express.static(path.join(__dirname, 'images')))
+
+// Add session data to DB
+const store = new MongoStore({
+  uri: keys.DB_URI,
+  collection: 'sessions'
+})
+
 // Register middleware to parse request's body
 app.use(express.urlencoded({ extended: true }))
 app.use(
@@ -53,6 +58,10 @@ app.use(
     store
   })
 )
+
+// Register file middleware
+app.use(fileMiddleware.single('avatar'))
+
 app.use(csrf())
 app.use(flash())
 // Add variables to request object
@@ -67,6 +76,7 @@ app.use('/add-course', courseAddRoutes)
 app.use('/cart', cartRoutes)
 app.use('/order', orderRoutes)
 app.use('/auth', authRoutes)
+app.use('/profile', profileRoutes)
 
 // Must be declared at the end
 app.use(errorHandler)

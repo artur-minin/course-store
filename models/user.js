@@ -13,8 +13,7 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  resetToken: String,
-  resetTokenExpire: Date,
+  avatarURL: String,
   cart: {
     items: [
       {
@@ -30,7 +29,9 @@ const userSchema = new Schema({
         }
       }
     ]
-  }
+  },
+  resetToken: String,
+  resetTokenExpire: Date
 })
 
 userSchema.methods.addToCart = function (courseToAdd) {
